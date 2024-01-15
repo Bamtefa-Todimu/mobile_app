@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import {Stack,useRouter} from 'expo-router'
 
@@ -7,7 +8,8 @@ import { Nearbyjobs,Welcome, Popularjobs, ScreenHeaderBtn } from '../components'
 
 const index = () => {
 
-    const router = useRouter
+    const router = useRouter()
+    const [searchTerm, setSearchTerm] = useState("");
 
 
   return (
@@ -34,7 +36,14 @@ const index = () => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.view}>
-                <Welcome/>
+                <Welcome 
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                handleClick={() => {
+                if (searchTerm) {
+                    router.push(`/search/${searchTerm}`)
+                }
+            }}/>
                 <Popularjobs/>
                 <Nearbyjobs/>
             </View>
